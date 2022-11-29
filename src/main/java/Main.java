@@ -1,6 +1,31 @@
 import java.util.Locale;
 
 public class Main {
+    public static String chooseSuffix(float number) {  // Создаем метод который выбирает окончания.
+        int divider = 10;                              // Объявляем переменную делителя
+        if (number >= 11 && number <=14) {
+            divider = 100;
+        }
+        int value = (int) Math.floor(number) % divider; // Округляем number и извлекаем последнюю цифру
+
+        String suffix;
+
+        switch (value) {
+            case 1:
+                suffix = "рубль";
+                break;
+            case 2:
+            case 3:
+            case 4:
+                suffix = "рубля";
+                break;
+            default:
+                suffix = "рублей";
+                break;
+        }
+        return suffix;
+    }
+
 
     public static void main(String[] args) {
         Persons persons = new Persons();  // Создаём новый объект класса Persons
@@ -13,13 +38,8 @@ public class Main {
             System.out.println(String.format(Locale.US, "Добавленные товары: %s - %.2f Руб.", product.name, product.cost)); // Для каждого продукта из списка печатаем его имя и цену.
         }
         float averageCheck = (float) (calculator.total / persons.count); // Подсчитываем средний чек
-        String rub = "ру";
-        if (averageCheck < 2 && averageCheck >= 1) {
-            rub = rub + "бль";
-        } else {
-            rub = rub + "бля";
-        }
-        System.out.println(String.format(Locale.US, "%.2f  %s  с каждого гостя.", averageCheck, rub));
+
+        System.out.println(String.format(Locale.US, "%.2f  %s  с каждого гостя.", averageCheck, chooseSuffix(averageCheck)));
     }
 
 }
